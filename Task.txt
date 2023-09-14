@@ -1,0 +1,73 @@
+using System;
+
+class DocumentProgram
+{
+    public void OpenDocument()
+    {
+        Console.WriteLine("1. Document Opened");
+    }
+
+    public virtual void EditDocument()
+    {
+        Console.WriteLine("2. Can Edit in Pro and Expert versions");
+    }
+
+    public virtual void SaveDocument()
+    {
+        Console.WriteLine("3. Can Save in Pro and Expert versions");
+    }
+}
+
+class ProDocumentProgram : DocumentProgram
+{
+    public sealed override void EditDocument()
+    {
+        Console.WriteLine("2. Document Edited");
+    }
+
+    public override void SaveDocument()
+    {
+        Console.WriteLine("3. Document Saved in doc format, for pdf format buy Expert packet");
+    }
+}
+
+class ExpertDocument : ProDocumentProgram
+{
+    public override void SaveDocument()
+    {
+        Console.WriteLine("3. Document Saved in pdf format");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Enter your key (basic, pro, expert):");
+        string key = Console.ReadLine();
+
+        DocumentProgram docProgram;
+
+        if (key == "basic")
+        {
+            docProgram = new DocumentProgram();
+        }
+        else if (key == "pro")
+        {
+            docProgram = new ProDocumentProgram();
+        }
+        else if (key == "expert")
+        {
+            docProgram = new ExpertDocument();
+        }
+        else
+        {
+            Console.WriteLine("Invalid key.");
+            return;
+        }
+
+        docProgram.OpenDocument();
+        docProgram.EditDocument();
+        docProgram.SaveDocument();
+    }
+}
